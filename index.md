@@ -3,15 +3,24 @@ layout: default
 title: Game Design document start page
 ---
 
+<p class="eyebrow">Field notes / 001</p>
+
 # Game Design Portfolio
 
-A collection of game concepts, design systems, prototypes, visual directions, and iterative design work.
+<p class="lede">A working archive of game concepts, systems, prototypes, and the decisions that shape them.</p>
 
-## Project
+<section class="project-list" aria-labelledby="projects-heading">
+	<div class="section-heading">
+		<h2 id="projects-heading">Selected work</h2>
+		<span>01 / 01 projects</span>
+	</div>
 
-### Title
-
-Lorem Ipsum
-
-[Explore the full design document →]({{ '/projects/neon-forest/' | relative_url }})
-
+	<a class="project-card" href="{{ '/projects/neon-forest/' | relative_url }}">
+		<span class="project-card__index">01</span>
+		<span>
+			<h3>Neon Forest</h3>
+			<p>A bright, dangerous world built around exploration, atmosphere, and readable systems.</p>
+		</span>
+		<span class="project-card__arrow" aria-hidden="true">-&gt;</span>
+	</a>
+</section>

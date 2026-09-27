@@ -3,17 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ page.description | default: site.description }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>{{ page.title }} | {{ site.title }}</title>
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
   </head>
 
   <body>
-    <nav>
-      <a href="{{ '/' | relative_url }}">Game Design Archive</a>
-    </nav>
+    <header class="site-header">
+      <a class="site-mark" href="{{ '/' | relative_url }}">
+        <span class="site-mark__dot"></span>
+        <span>GD / archive</span>
+      </a>
+      <span class="site-header__status">Independent game design / 2026</span>
+    </header>
 
     <main>
       {{ content }}
     </main>
+
+    <footer class="site-footer">
+      <span>Game Design Portfolio</span>
+      <span>Built from sketches, systems, and playtests.</span>
+    </footer>
   </body>
 </html>
