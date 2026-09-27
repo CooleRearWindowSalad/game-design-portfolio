@@ -1,0 +1,63 @@
+.page-home .section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-home .project-card__index {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+.page-home .section-heading h2 {
+  margin-bottom: 0;
+}
+
+.page-home .section-heading span {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.page-home .project-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5rem 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.5rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.page-home .project-card:hover,
+.page-home .project-card:focus-visible {
+  transform: translate(-0.35rem, -0.35rem);
+  box-shadow: 0.35rem 0.35rem 0 var(--coral);
+}
+
+.page-home .project-card h3 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+
+.page-home .project-card p {
+  margin: 0.45rem 0 0;
+  color: #bec2b8;
+}
+
+.page-home .project-card__arrow {
+  color: var(--lime);
+  font-size: 1.5rem;
+}

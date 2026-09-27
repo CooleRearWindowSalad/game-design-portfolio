@@ -9,9 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>{{ page.title }} | {{ site.title }}</title>
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+    {% if page.stylesheet %}
+    <link rel="stylesheet" href="{{ '/assets/css/pages/' | append: page.stylesheet | append: '.css' | relative_url }}" />
+    {% endif %}
   </head>
 
-  <body>
+  <body class="page-{{ page.stylesheet | default: 'base' }}">
     <header class="site-header">
       <a class="site-mark" href="{{ '/' | relative_url }}">
         <span class="site-mark__dot"></span>

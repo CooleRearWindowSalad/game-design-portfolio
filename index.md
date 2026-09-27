@@ -1,6 +1,8 @@
 ---
 layout: default
-title: Game Design document start page
+title: Game Design Portfolio
+description: A working archive of game concepts, systems, prototypes, and design decisions.
+stylesheet: home
 ---
 
 <p class="eyebrow">Field notes / 001</p>
