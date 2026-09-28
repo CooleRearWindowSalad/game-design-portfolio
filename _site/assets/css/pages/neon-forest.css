@@ -1,0 +1,47 @@
+.page-neon-forest main {
+  width: 960px;
+}
+
+.page-neon-forest h1 {
+  margin-bottom: 1.25rem;
+  font-size: 6rem;
+}
+
+.page-neon-forest .lede {
+  max-width: 42rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.35rem;
+}
+
+.page-neon-forest .project-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 7rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.page-neon-forest .project-meta span::before {
+  margin-right: 0.45rem;
+  color: var(--coral);
+  content: "//";
+}
+
+.page-neon-forest h2 {
+  width: 14rem;
+  float: left;
+  margin-right: 5rem;
+  color: var(--coral);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.page-neon-forest h2 + p {
+  min-height: 8rem;
+  font-size: 1.2rem;
+}

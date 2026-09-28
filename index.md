@@ -18,7 +18,10 @@ stylesheet: home
 	</div>
 
 	<a class="project-card" href="{{ '/projects/neon-forest/' | relative_url }}">
-		<span class="project-card__index">01</span>
+		<span class="project-card__meta">
+			<span class="project-card__index">01</span>
+			<span class="project-card__date">24/09 until 25/09-2026</span>
+		</span>
 		<span>
 			<h3>Neon Forest</h3>
 			<p>A bright, dangerous world built around exploration, atmosphere, and readable systems.</p>
@@ -27,7 +30,10 @@ stylesheet: home
 	</a>
 	
 	<a class="project-card" href="{{ '/projects/neon-forest/' | relative_url }}">
-		<span class="project-card__index">01</span>
+		<span class="project-card__meta">
+			<span class="project-card__index">02</span>
+			<span class="project-card__date">28/09-2026</span>
+		</span>
 		<span>
 			<h3>Neon Forest</h3>
 			<p>A bright, dangerous world built around exploration, atmosphere, and readable systems.</p>
