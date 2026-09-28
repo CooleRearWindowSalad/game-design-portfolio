@@ -25,4 +25,13 @@ stylesheet: home
 		</span>
 		<span class="project-card__arrow" aria-hidden="true">-&gt;</span>
 	</a>
+	
+	<a class="project-card" href="{{ '/projects/neon-forest/' | relative_url }}">
+		<span class="project-card__index">01</span>
+		<span>
+			<h3>Neon Forest</h3>
+			<p>A bright, dangerous world built around exploration, atmosphere, and readable systems.</p>
+		</span>
+		<span class="project-card__arrow" aria-hidden="true">-&gt;</span>
+	</a>
 </section>
