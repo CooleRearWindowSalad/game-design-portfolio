@@ -1,0 +1,102 @@
+/* Shared tokens and base styles for every screen. */
+:root {
+  --night: #080f0c; /* matches the logo background */
+  --night-raised: #121a16;
+  --paper: #f3f0e8;
+  --lime: #c8f169;
+  --coral: #ef765d;
+  --muted: #9aa197;
+  --line: rgba(243, 240, 232, 0.14);
+  --note: #fff6a8;
+  --mono: "DM Mono", monospace;
+  --sans: "Space Grotesk", "Trebuchet MS", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--paper);
+  font-family: var(--sans);
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+  background: var(--night);
+}
+
+.navbar__logo img {
+  width: 140px;
+}
+
+.navbar__status {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+main {
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.screen {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(3rem, 10vh, 7rem) 0;
+}
+
+.eyebrow {
+  margin-bottom: 1rem;
+  color: var(--coral);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.btn-secondary {
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--paper);
+  font: 500 0.9rem var(--mono);
+  cursor: pointer;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  border-color: var(--lime);
+  color: var(--lime);
+}

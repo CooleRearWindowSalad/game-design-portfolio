@@ -1,0 +1,14 @@
+# Editor
+.vs/
+.vscode/
+
+# Jekyll build output
+_site/
+.jekyll-cache/
+
+# Vercel
+.vercel/
+
+# OS
+Thumbs.db
+.DS_Store

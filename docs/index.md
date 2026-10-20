@@ -17,26 +17,14 @@ stylesheet: home
 		<span>01 / 01 projects</span>
 	</div>
 
-	<a class="project-card" href="{{ '/projects/neon-forest/' | relative_url }}">
+	<a class="project-card" href="{{ '/projects/shared-fridge/' | relative_url }}">
 		<span class="project-card__meta">
 			<span class="project-card__index">01</span>
-			<span class="project-card__date">24/09 until 25/09-2026</span>
+			<span class="project-card__date">2026</span>
 		</span>
 		<span>
-			<h3>Neon Forest</h3>
-			<p>A bright, dangerous world built around exploration, atmosphere, and readable systems.</p>
-		</span>
-		<span class="project-card__arrow" aria-hidden="true">-&gt;</span>
-	</a>
-	
-	<a class="project-card" href="{{ '/projects/neon-forest/' | relative_url }}">
-		<span class="project-card__meta">
-			<span class="project-card__index">02</span>
-			<span class="project-card__date">28/09-2026</span>
-		</span>
-		<span>
-			<h3>Neon Forest</h3>
-			<p>A bright, dangerous world built around exploration, atmosphere, and readable systems.</p>
+			<h3>Shared Fridge</h3>
+			<p>Survive 7 nights until payday by cooking from your housemates' food, without getting caught.</p>
 		</span>
 		<span class="project-card__arrow" aria-hidden="true">-&gt;</span>
 	</a>
