@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+@implements IDisposable
+@inject GameSession Session
+
+<header class="navbar">
+    <a class="navbar__logo" href="" aria-label="Shared Fridge home">
+        <img src="images/navbar-logo.png" alt="Shared Fridge" width="180" height="77" />
+    </a>
+    <span class="navbar__status">Night @Session.Night / @GameSession.TotalNights</span>
+</header>
+
+<main>
+    @Body
+</main>
+
+@code {
+    protected override void OnInitialized() => Session.Changed += StateHasChanged;
+
+    public void Dispose() => Session.Changed -= StateHasChanged;
+}

@@ -2,11 +2,14 @@
 :root {
   --night: #080f0c; /* matches the logo background */
   --night-raised: #121a16;
+  --page: #ffffff;
+  --ink: #202321;
   --paper: #f3f0e8;
   --lime: #c8f169;
   --coral: #ef765d;
-  --muted: #9aa197;
-  --line: rgba(243, 240, 232, 0.14);
+  --muted: #5f665c; /* body text on white */
+  --muted-dark: #9aa197; /* text on the black navbar */
+  --line: rgba(32, 35, 33, 0.18);
   --note: #fff6a8;
   --mono: "DM Mono", monospace;
   --sans: "Space Grotesk", "Trebuchet MS", sans-serif;
@@ -23,8 +26,8 @@ body {
 
 body {
   margin: 0;
-  background: var(--night);
-  color: var(--paper);
+  background: var(--page);
+  color: var(--ink);
   font-family: var(--sans);
   line-height: 1.5;
 }
@@ -41,8 +44,30 @@ p {
   margin-top: 0;
 }
 
-[hidden] {
-  display: none !important;
+.loading {
+  padding: 2rem;
+  font-family: var(--mono);
+}
+
+/* Shown by Blazor when an unhandled error happens */
+#blazor-error-ui {
+  display: none;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.6rem 1.25rem;
+  background: var(--note);
+  color: var(--ink);
+  font-family: var(--mono);
+}
+
+#blazor-error-ui .dismiss {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  cursor: pointer;
 }
 
 .navbar {
@@ -51,7 +76,6 @@ p {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.75rem clamp(1rem, 4vw, 3rem);
-  border-bottom: 1px solid var(--line);
   background: var(--night);
 }
 
@@ -60,7 +84,7 @@ p {
 }
 
 .navbar__status {
-  color: var(--muted);
+  color: var(--muted-dark);
   font-family: var(--mono);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
@@ -90,13 +114,12 @@ main {
   padding: 0.7rem 1.2rem;
   border: 1px solid var(--line);
   background: transparent;
-  color: var(--paper);
+  color: var(--ink);
   font: 500 0.9rem var(--mono);
   cursor: pointer;
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus-visible {
-  border-color: var(--lime);
-  color: var(--lime);
+  border-color: var(--ink);
 }

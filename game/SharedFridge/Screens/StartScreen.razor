@@ -1,0 +1,22 @@
+<section class="screen start">
+    <div class="start__intro">
+        <p class="eyebrow">7 nights until payday</p>
+        <h1 class="start__title">Shared<br />Fridge</h1>
+        <p class="start__lede">
+            You're a broke student. Your housemates' shelves are full. Cook the best meal you can each night,
+            and don't get caught.
+        </p>
+        <button class="btn-play" type="button" @onclick="OnPlay">
+            <span class="btn-play__icon" aria-hidden="true">&#9654;</span>
+            Play
+        </button>
+    </div>
+
+    <aside class="note" aria-label="Note on the fridge">
+        <p class="note__text">Whoever ate my yoghurt: I'm counting. &mdash; S.</p>
+    </aside>
+</section>
+
+@code {
+    [Parameter] public EventCallback OnPlay { get; set; }
+}

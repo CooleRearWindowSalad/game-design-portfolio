@@ -1,0 +1,27 @@
+@inject GameSession Session
+@inject GameDataLoader Data
+
+@* Placeholder until the core loop is built: choose a recipe, take ingredients, cook. *@
+<section class="screen night">
+    <p class="eyebrow">Night @Session.Night</p>
+    <h2>The kitchen is quiet&hellip;</h2>
+
+    @if (housemates is null)
+    {
+        <p>Loading&hellip;</p>
+    }
+    else
+    {
+        <p>Home tonight: @string.Join(", ", housemates.Select(h => h.Name))</p>
+    }
+
+    <button class="btn-secondary" type="button" @onclick="OnQuit">Back to start</button>
+</section>
+
+@code {
+    [Parameter] public EventCallback OnQuit { get; set; }
+
+    private IReadOnlyList<Housemate>? housemates;
+
+    protected override async Task OnInitializedAsync() => housemates = await Data.LoadHousematesAsync();
+}
