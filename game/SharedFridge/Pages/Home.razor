@@ -1,0 +1,13 @@
+﻿@page "/"
+@inject GameSession Session
+
+<PageTitle>Shared Fridge</PageTitle>
+
+@if (Session.IsRunning)
+{
+    <NightScreen OnQuit="Session.Quit" />
+}
+else
+{
+    <StartScreen OnPlay="Session.Start" />
+}
