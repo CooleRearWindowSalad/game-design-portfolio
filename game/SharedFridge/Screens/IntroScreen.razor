@@ -1,0 +1,74 @@
+@inject GameDataLoader Data
+
+<section class="screen intro">
+    @if (parts is null)
+    {
+        <p>Loading&hellip;</p>
+    }
+    else
+    {
+        var part = parts[index];
+
+        @* Keyed so each part re-mounts and plays its fade-in *@
+        <article class="intro__part" @key="index" aria-live="polite">
+            <p class="eyebrow">@part.Eyebrow</p>
+            <h2 class="intro__title">@part.Title</h2>
+            @foreach (var paragraph in part.Paragraphs)
+            {
+                <p class="intro__text">@paragraph</p>
+            }
+        </article>
+
+        <div class="intro__controls">
+            <ol class="intro__progress" aria-label="Part @(index + 1) of @parts.Count">
+                @for (var i = 0; i < parts.Count; i++)
+                {
+                    <li class="intro__dot @(i <= index ? "intro__dot--done" : "")"></li>
+                }
+            </ol>
+
+            <div class="intro__buttons">
+                @if (!IsLast)
+                {
+                    <button class="btn-secondary" type="button" @onclick="OnFinish">Skip intro</button>
+                }
+                <button class="btn-play" type="button" @onclick="Next">
+                    @(IsLast ? "Start night 1" : "Continue")
+                    <span class="btn-play__icon" aria-hidden="true">&#9654;</span>
+                </button>
+            </div>
+        </div>
+    }
+</section>
+
+@code {
+    [Parameter] public EventCallback OnFinish { get; set; }
+
+    private IReadOnlyList<IntroPart>? parts;
+    private int index;
+
+    private bool IsLast => parts is not null && index == parts.Count - 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        parts = await Data.LoadIntroAsync();
+
+        // Nothing to tell: go straight to the game
+        if (parts.Count == 0)
+        {
+            await OnFinish.InvokeAsync();
+        }
+    }
+
+    private async Task Next()
+    {
+        if (IsLast)
+        {
+            await OnFinish.InvokeAsync();
+        }
+        else
+        {
+            index++;
+        }
+    }
+}

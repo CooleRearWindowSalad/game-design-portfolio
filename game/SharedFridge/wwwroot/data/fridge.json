@@ -1,0 +1,23 @@
+[
+  { "id": 1, "ownerId": 0, "name": "Half a lemon", "icon": "🍋", "price": 0.30 },
+  { "id": 2, "ownerId": 0, "name": "Ketchup", "icon": "🥫", "price": 1.20 },
+
+  { "id": 10, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
+  { "id": 11, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
+  { "id": 12, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
+  { "id": 13, "ownerId": 1, "name": "Yoghurt", "icon": "🥛", "price": 0.90 },
+  { "id": 14, "ownerId": 1, "name": "Yoghurt", "icon": "🥛", "price": 0.90 },
+  { "id": 15, "ownerId": 1, "name": "Cheese", "icon": "🧀", "price": 3.50 },
+
+  { "id": 20, "ownerId": 2, "name": "Parmesan", "icon": "🧀", "price": 6.50 },
+  { "id": 21, "ownerId": 2, "name": "Real butter", "icon": "🧈", "price": 3.20 },
+  { "id": 22, "ownerId": 2, "name": "Vine tomatoes", "icon": "🍅", "price": 2.80 },
+  { "id": 23, "ownerId": 2, "name": "Fresh pasta", "icon": "🍝", "price": 4.00 },
+  { "id": 24, "ownerId": 2, "name": "Pesto", "icon": "🌿", "price": 4.50 },
+
+  { "id": 30, "ownerId": 3, "name": "Crisps", "icon": "🥔", "price": 1.50 },
+  { "id": 31, "ownerId": 3, "name": "Instant noodles", "icon": "🍜", "price": 0.80 },
+  { "id": 32, "ownerId": 3, "name": "Chocolate pudding", "icon": "🍮", "price": 1.10, "isFavourite": true },
+  { "id": 33, "ownerId": 3, "name": "Hummus", "icon": "🫘", "price": 1.80 },
+  { "id": 34, "ownerId": 3, "name": "Old yoghurt", "icon": "🥛", "price": 0.60 }
+]
