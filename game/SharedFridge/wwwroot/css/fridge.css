@@ -1,0 +1,156 @@
+/* Night: the fridge and the counter next to it */
+.night__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+.fridge {
+  padding: 1.25rem;
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+  background: #eef3f1;
+  box-shadow: inset 0 0 0 0.5rem var(--paper);
+}
+
+.fridge__shelf {
+  padding: 0.75rem 0.5rem 0.6rem;
+  border-bottom: 4px solid rgba(32, 35, 33, 0.22); /* the glass shelf */
+}
+
+.fridge__shelf:last-child {
+  border-bottom: 0;
+}
+
+.fridge__label {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fridge__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 5.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fridge__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  padding: 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--page);
+  color: var(--ink);
+  font: 500 0.75rem var(--sans);
+  line-height: 1.15;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 100ms ease, border-color 150ms ease;
+}
+
+.fridge__item:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.fridge__item:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* A gap where the item used to be */
+.fridge__item--taken {
+  border-style: dashed;
+  border-color: var(--muted);
+  background: transparent;
+  opacity: 0.45;
+}
+
+.fridge__item--taken .fridge__icon {
+  filter: grayscale(1);
+}
+
+.fridge__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.counter {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.counter__title {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.counter__empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.counter__items {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.counter__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.counter__owner {
+  display: block;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.counter__return {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: 500 0.7rem var(--mono);
+  cursor: pointer;
+}
+
+.counter__return:hover,
+.counter__return:focus-visible {
+  border-color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .night__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fridge__item {
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+}

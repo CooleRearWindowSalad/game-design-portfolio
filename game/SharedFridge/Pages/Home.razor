@@ -3,11 +3,15 @@
 
 <PageTitle>Shared Fridge</PageTitle>
 
-@if (Session.IsRunning)
+@switch (Session.Phase)
 {
-    <NightScreen OnQuit="Session.Quit" />
-}
-else
-{
-    <StartScreen OnPlay="Session.Start" />
+    case GamePhase.Intro:
+        <IntroScreen OnFinish="Session.FinishIntro" />
+        break;
+    case GamePhase.Night:
+        <NightScreen OnQuit="Session.Quit" />
+        break;
+    default:
+        <StartScreen OnPlay="Session.Start" />
+        break;
 }

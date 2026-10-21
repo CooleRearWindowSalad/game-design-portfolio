@@ -1,0 +1,79 @@
+/* Intro story */
+.intro {
+  max-width: 40rem;
+}
+
+.intro__part {
+  min-height: 20rem;
+  animation: intro-fade-in 400ms ease both;
+}
+
+.intro__title {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.intro__text {
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.intro__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.intro__progress {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.intro__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+}
+
+.intro__dot--done {
+  background: var(--ink);
+}
+
+.intro__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Same size as the skip button next to it */
+.intro__buttons .btn-play {
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border-width: 1px;
+  font-size: 0.9rem;
+}
+
+@keyframes intro-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro__part {
+    animation: none;
+  }
+}

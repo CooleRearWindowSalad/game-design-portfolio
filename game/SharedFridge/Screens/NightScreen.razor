@@ -1,18 +1,64 @@
 @inject GameSession Session
 @inject GameDataLoader Data
 
-@* Placeholder until the core loop is built: choose a recipe, take ingredients, cook. *@
 <section class="screen night">
-    <p class="eyebrow">Night @Session.Night</p>
+    <p class="eyebrow">Night @Session.Night of @GameSession.TotalNights</p>
     <h2>The kitchen is quiet&hellip;</h2>
 
-    @if (housemates is null)
+    @if (housemates is null || items is null)
     {
         <p>Loading&hellip;</p>
     }
     else
     {
-        <p>Home tonight: @string.Join(", ", housemates.Select(h => h.Name))</p>
+        <div class="night__layout">
+            <div class="fridge" aria-label="The shared fridge">
+                @foreach (var shelf in Shelves())
+                {
+                    <div class="fridge__shelf">
+                        <p class="fridge__label">@shelf.Label</p>
+                        <ul class="fridge__items">
+                            @foreach (var item in shelf.Items)
+                            {
+                                var taken = Session.IsTaken(item);
+                                <li>
+                                    <button type="button"
+                                            class="fridge__item @(taken ? "fridge__item--taken" : "")"
+                                            aria-pressed="@taken"
+                                            title="@(taken ? $"Put back {item.Name}" : $"Take {item.Name}")"
+                                            @onclick="() => Session.ToggleTaken(item)">
+                                        <span class="fridge__icon" aria-hidden="true">@item.Icon</span>
+                                        <span class="fridge__name">@item.Name</span>
+                                    </button>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+
+            <aside class="counter" aria-label="Taken tonight">
+                <h3 class="counter__title">On your counter</h3>
+                @{ var takenItems = items.Where(Session.IsTaken).ToList(); }
+                @if (takenItems.Count == 0)
+                {
+                    <p class="counter__empty">Nothing yet. Click something in the fridge to take it.</p>
+                }
+                else
+                {
+                    <ul class="counter__items">
+                        @foreach (var item in takenItems)
+                        {
+                            <li class="counter__item">
+                                <span aria-hidden="true">@item.Icon</span>
+                                <span class="counter__name">@item.Name <span class="counter__owner">@OwnerLabel(item.OwnerId)</span></span>
+                                <button class="counter__return" type="button" @onclick="() => Session.ToggleTaken(item)">Put back</button>
+                            </li>
+                        }
+                    </ul>
+                }
+            </aside>
+        </div>
     }
 
     <button class="btn-secondary" type="button" @onclick="OnQuit">Back to start</button>
@@ -22,6 +68,27 @@
     [Parameter] public EventCallback OnQuit { get; set; }
 
     private IReadOnlyList<Housemate>? housemates;
+    private IReadOnlyList<FridgeItem>? items;
 
-    protected override async Task OnInitializedAsync() => housemates = await Data.LoadHousematesAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        var housematesTask = Data.LoadHousematesAsync();
+        var itemsTask = Data.LoadFridgeAsync();
+        housemates = await housematesTask;
+        items = await itemsTask;
+    }
+
+    // The player's own shelf on top, then one shelf per housemate
+    private IEnumerable<(string Label, IEnumerable<FridgeItem> Items)> Shelves()
+    {
+        yield return ("Your shelf", items!.Where(i => i.OwnerId == 0));
+
+        foreach (var housemate in housemates!)
+        {
+            yield return (housemate.Name, items!.Where(i => i.OwnerId == housemate.Id));
+        }
+    }
+
+    private string OwnerLabel(int ownerId) =>
+        ownerId == 0 ? "Yours" : $"{housemates!.FirstOrDefault(h => h.Id == ownerId)?.Name ?? "Someone"}'s";
 }
