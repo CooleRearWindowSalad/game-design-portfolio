@@ -6,9 +6,9 @@
   --ink: #202321;
   --paper: #f3f0e8;
   --lime: #c8f169;
-  --coral: #ef765d;
+  --lime-light: #d8f78f;
+  --green: #4f7a12; /* readable lime-family green for text on white */
   --muted: #5f665c; /* body text on white */
-  --muted-dark: #9aa197; /* text on the black navbar */
   --line: rgba(32, 35, 33, 0.18);
   --note: #fff6a8;
   --mono: "DM Mono", monospace;
@@ -42,6 +42,11 @@ h1,
 h2,
 p {
   margin-top: 0;
+}
+
+/* Blazor focuses the page's h1 after navigation (for screen readers); don't draw a ring around it */
+h1:focus {
+  outline: none;
 }
 
 .loading {
@@ -83,14 +88,6 @@ p {
   width: 140px;
 }
 
-.navbar__status {
-  color: var(--muted-dark);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
 main {
   padding: 0 clamp(1rem, 4vw, 3rem);
 }
@@ -103,7 +100,7 @@ main {
 
 .eyebrow {
   margin-bottom: 1rem;
-  color: var(--coral);
+  color: var(--green);
   font-family: var(--mono);
   font-size: 0.8rem;
   letter-spacing: 0.06em;
