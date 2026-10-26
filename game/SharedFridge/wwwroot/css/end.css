@@ -1,0 +1,61 @@
+/* End screen: payday and what you ate each night */
+.end {
+  max-width: 40rem;
+}
+
+.end__title {
+  margin-bottom: 1rem;
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.end__score {
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.end__nights {
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.end__night {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.end__night--hungry {
+  color: var(--muted);
+}
+
+.end__label,
+.end__points {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+.end__points {
+  color: var(--green);
+}
+
+.end__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Same size as the secondary button next to it */
+.end__buttons .btn-play {
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border-width: 1px;
+  font-size: 0.9rem;
+}

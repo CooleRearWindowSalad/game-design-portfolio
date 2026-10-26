@@ -1,5 +1,5 @@
 [
-  { "name": "Simple", "points": 1 },
+  { "name": "Easy", "points": 1 },
   { "name": "Medium", "points": 2 },
   { "name": "Hard", "points": 3 }
 ]

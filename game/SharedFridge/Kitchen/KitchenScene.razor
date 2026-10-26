@@ -1,0 +1,64 @@
+@inject GameSession Session
+
+@* The kitchen at night. Everything you can use is a button. *@
+<div class="kitchen">
+    <button type="button" class="kitchen__spot kitchen__fridge" @onclick="() => Open(KitchenSpot.Fridge)">
+        <span class="kitchen__fridge-freezer" aria-hidden="true"></span>
+        <span class="kitchen__fridge-handle" aria-hidden="true"></span>
+        <span class="kitchen__fridge-notes" aria-hidden="true">
+            @foreach (var _ in Session.Notes)
+            {
+                <span></span>
+            }
+        </span>
+        <span class="kitchen__label">Fridge</span>
+    </button>
+
+    <button type="button" class="kitchen__spot kitchen__board" @onclick="() => Open(KitchenSpot.Board)">
+        <span class="kitchen__notes" aria-hidden="true">
+            @foreach (var recipe in Menu)
+            {
+                <span class="kitchen__note">@recipe.Icon</span>
+            }
+        </span>
+        <span class="kitchen__label">Tonight's menu</span>
+    </button>
+
+    <div class="kitchen__counter" aria-label="Your counter">
+        <span class="kitchen__counter-top">
+            @foreach (var item in Items.Where(Session.IsTaken))
+            {
+                <span title="@item.Name">@item.Icon</span>
+            }
+        </span>
+    </div>
+
+    <button type="button" class="kitchen__spot kitchen__stove" @onclick="() => Open(KitchenSpot.Stove)">
+        <span class="kitchen__burners" aria-hidden="true">
+            @if (Session.CookedTonight is { } meal)
+            {
+                <span class="kitchen__pan">@meal.Recipe.Icon</span>
+            }
+            else
+            {
+                <span></span><span></span><span></span><span></span>
+            }
+        </span>
+        <span class="kitchen__oven @(Session.CookedTonight is null ? "" : "kitchen__oven--warm")" aria-hidden="true"></span>
+        <span class="kitchen__label">Stove &amp; oven</span>
+    </button>
+
+    <button type="button" class="kitchen__spot kitchen__door" @onclick="() => Open(KitchenSpot.Bed)">
+        <span class="kitchen__door-sign" aria-hidden="true">🛏️</span>
+        <span class="kitchen__door-knob" aria-hidden="true"></span>
+        <span class="kitchen__label">Go to bed</span>
+    </button>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<FridgeItem> Items { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<Recipe> Menu { get; set; } = [];
+    [Parameter] public EventCallback<KitchenSpot> OnOpen { get; set; }
+
+    private Task Open(KitchenSpot spot) => OnOpen.InvokeAsync(spot);
+}

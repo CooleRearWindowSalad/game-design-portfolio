@@ -1,0 +1,24 @@
+@inject GameSession Session
+
+<section class="screen morning">
+    <p class="eyebrow">@Days[(Session.Night - 1) % Days.Length], 07:30</p>
+    <h2 class="morning__title">Notes on the fridge</h2>
+    <p class="morning__lede">You shuffle into the kitchen. Your housemates have already left for the day.</p>
+
+    <div class="morning__door">
+        @foreach (var note in Session.Notes)
+        {
+            <p class="note morning__note">@note.Text</p>
+        }
+    </div>
+
+    <button class="btn-play" type="button" @onclick="Session.FinishMorning">
+        @(Session.CaughtBy is not null ? "Face them" : Session.Night >= GameSession.TotalNights ? "It's payday" : $"On to night {Session.Night + 1}")
+        <span class="btn-play__icon" aria-hidden="true">&#9654;</span>
+    </button>
+</section>
+
+@code {
+    // Night 1 is Sunday night, so the first morning is Monday
+    private static readonly string[] Days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+}

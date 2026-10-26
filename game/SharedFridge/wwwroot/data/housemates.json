@@ -1,5 +1,47 @@
 [
-  { "id": 1, "name": "Sanne", "rule": "CountsItems" },
-  { "id": 2, "name": "Mo", "rule": "ChecksQuality" },
-  { "id": 3, "name": "Lisa", "rule": "SecretFavourite" }
+  {
+    "id": 1,
+    "name": "Sanne",
+    "rule": "CountsItems",
+    "noticedNotes": [
+      "I counted my shelf this morning: {count} missing. Probably my mistake? — S.",
+      "{count} missing AGAIN. I have a list, you know. I always have a list. — S.",
+      "I've counted every morning this week. Kitchen. Tonight. We need to talk. — S."
+    ],
+    "quietNotes": [
+      "Morning! Everything's where I left it. Have a lovely day :) — S.",
+      "Shelf count: all correct today. Let's keep it that way. — S.",
+      "Nothing missing today. I'm still counting. — S."
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Mo",
+    "rule": "ChecksQuality",
+    "noticedNotes": [
+      "Someone used my {item}. That was €{price}. Not cheap. — Mo",
+      "My {item}, again. I can taste the difference, and I can tell when it's gone. — Mo",
+      "€{price} of {item}. Again. I know it's you. We're talking tonight. — Mo"
+    ],
+    "quietNotes": [
+      "Farmers' market on Saturday if anyone wants to come. Proper food. — Mo",
+      "All the good stuff is still there today. Good. — Mo",
+      "My shelf looks right today. I'm keeping an eye on the good stuff. — Mo"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Lisa",
+    "rule": "SecretFavourite",
+    "noticedNotes": [
+      "ok who ate my {item}. not cool. — L",
+      "my {item}. AGAIN. I said take anything EXCEPT that. — L",
+      "three times. my {item}. three times. I'm telling everyone. — L"
+    ],
+    "quietNotes": [
+      "someone take my old yoghurt pls it's starting to smell — L",
+      "fine. we're good. for now. — L",
+      "I'm watching my shelf. — L"
+    ]
+  }
 ]

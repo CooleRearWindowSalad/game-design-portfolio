@@ -1,0 +1,20 @@
+[
+  { "name": "Scrambled eggs", "icon": "🍳", "tier": "Easy", "ingredients": ["Egg", "Egg", "Real butter"] },
+  { "name": "Noodle soup", "icon": "🍜", "tier": "Easy", "ingredients": ["Instant noodles", "Egg"] },
+  { "name": "Hummus wrap", "icon": "🌯", "tier": "Easy", "ingredients": ["Tortilla wraps", "Hummus"] },
+  { "name": "Tomato salad", "icon": "🥗", "tier": "Easy", "ingredients": ["Vine tomatoes", "Half a lemon"] },
+  { "name": "Ketchup rice", "icon": "🍚", "tier": "Easy", "ingredients": ["Leftover rice", "Ketchup"] },
+  { "name": "Pudding parfait", "icon": "🍨", "tier": "Easy", "ingredients": ["Chocolate pudding", "Yoghurt"] },
+
+  { "name": "Cheese omelette", "icon": "🧀", "tier": "Medium", "ingredients": ["Egg", "Egg", "Cheese", "Real butter"] },
+  { "name": "Egg fried rice", "icon": "🍚", "tier": "Medium", "ingredients": ["Leftover rice", "Egg", "Egg", "Garlic"] },
+  { "name": "Pesto pasta", "icon": "🍝", "tier": "Medium", "ingredients": ["Fresh pasta", "Pesto", "Parmesan"] },
+  { "name": "Quesadilla", "icon": "🫓", "tier": "Medium", "ingredients": ["Tortilla wraps", "Cheese", "Vine tomatoes"] },
+  { "name": "Garlic mushrooms", "icon": "🍄", "tier": "Medium", "ingredients": ["Mushrooms", "Garlic", "Real butter", "Half a lemon"] },
+
+  { "name": "Mushroom carbonara", "icon": "🍝", "tier": "Hard", "ingredients": ["Fresh pasta", "Egg", "Egg", "Parmesan", "Mushrooms"] },
+  { "name": "Shakshuka", "icon": "🍳", "tier": "Hard", "ingredients": ["Egg", "Egg", "Vine tomatoes", "Garlic", "Ketchup"] },
+  { "name": "Tomato butter pasta", "icon": "🍅", "tier": "Hard", "ingredients": ["Fresh pasta", "Vine tomatoes", "Real butter", "Garlic", "Parmesan"] },
+  { "name": "Baked lemon yoghurt pots", "icon": "🍮", "tier": "Hard", "ingredients": ["Yoghurt", "Yoghurt", "Egg", "Half a lemon", "Real butter"] },
+  { "name": "Chocolate mug cake", "icon": "🍫", "tier": "Hard", "ingredients": ["Chocolate pudding", "Egg", "Real butter", "Yoghurt"] }
+]

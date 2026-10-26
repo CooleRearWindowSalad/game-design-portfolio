@@ -1,0 +1,60 @@
+@inject GameSession Session
+
+@* Tonight's dishes in one column per tier. Shows a Cook button on each dish when OnCook is set. *@
+<div class="menu">
+    @foreach (var tier in Tiers.Where(t => Menu.Any(r => r.Tier == t.Name)))
+    {
+        <section class="menu__tier">
+            <h3 class="menu__tier-name">
+                @tier.Name
+                <span class="menu__points">+@tier.Points @(tier.Points == 1 ? "point" : "points")</span>
+            </h3>
+
+            @foreach (var recipe in Menu.Where(r => r.Tier == tier.Name))
+            {
+                var missing = Session.CheckCounter(recipe, Items).Missing;
+                var ready = missing.Count == 0;
+
+                <article class="recipe @(ready ? "recipe--ready" : "")">
+                    <p class="recipe__name"><span class="recipe__icon" aria-hidden="true">@recipe.Icon</span> @recipe.Name</p>
+
+                    <ul class="recipe__ingredients">
+                        @foreach (var group in recipe.Ingredients.GroupBy(n => n))
+                        {
+                            var need = group.Count();
+                            var have = need - missing.Count(m => m == group.Key);
+                            <li class="recipe__ingredient @(have == need ? "recipe__ingredient--have" : "")">
+                                <span class="recipe__check" aria-hidden="true">@(have == need ? "✓" : "○")</span>
+                                <span>@group.Key@(need > 1 ? $" ×{need}" : "")</span>
+                                @if (have > 0 && have < need)
+                                {
+                                    <span class="recipe__count">@have/@need</span>
+                                }
+                                <span class="visually-hidden">@(have == need ? "(on your counter)" : "(missing)")</span>
+                            </li>
+                        }
+                    </ul>
+
+                    @if (OnCook.HasDelegate)
+                    {
+                        <button class="recipe__cook" type="button" disabled="@(!ready || !CanCook)" @onclick="() => OnCook.InvokeAsync(recipe)">
+                            Cook
+                        </button>
+                        @if (CanCook && !ready)
+                        {
+                            <p class="recipe__missing">Take @IngredientText.Describe(missing) out of the fridge first.</p>
+                        }
+                    }
+                </article>
+            }
+        </section>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<RecipeTier> Tiers { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<Recipe> Menu { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<FridgeItem> Items { get; set; } = [];
+    [Parameter] public EventCallback<Recipe> OnCook { get; set; }
+    [Parameter] public bool CanCook { get; set; } = true;
+}

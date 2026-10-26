@@ -1,0 +1,46 @@
+@inject GameSession Session
+
+<section class="screen end">
+    @if (Session.CaughtBy is { } housemate)
+    {
+        <p class="eyebrow">Night @Session.Night of @GameSession.TotalNights</p>
+        <h2 class="end__title">Caught.</h2>
+        <p class="end__score">
+            @housemate.Name is waiting for you at the kitchen table. Everyone knows now.
+            You scored @Session.Score @(Session.Score == 1 ? "point" : "points") before it all came out.
+        </p>
+    }
+    else
+    {
+        <p class="eyebrow">Payday</p>
+        <h2 class="end__title">You made it.</h2>
+        <p class="end__score">
+            @Session.Score @(Session.Score == 1 ? "point" : "points") from @Session.Meals.Count of @GameSession.TotalNights nights
+        </p>
+    }
+
+    <ol class="end__nights">
+        @for (var night = 1; night <= Session.Night; night++)
+        {
+            var meal = Session.Meals.FirstOrDefault(m => m.Night == night);
+            <li class="end__night @(meal is null ? "end__night--hungry" : "")">
+                <span class="end__label">Night @night</span>
+                <span>@(meal is null ? "Went to bed hungry" : $"{meal.Recipe.Icon} {meal.Recipe.Name}")</span>
+                <span class="end__points">@(meal is null ? "" : $"+{meal.Points}")</span>
+            </li>
+        }
+    </ol>
+
+    <div class="end__buttons">
+        <button class="btn-play" type="button" @onclick="OnPlayAgain">
+            Play again
+            <span class="btn-play__icon" aria-hidden="true">&#9654;</span>
+        </button>
+        <button class="btn-secondary" type="button" @onclick="OnQuit">Back to start</button>
+    </div>
+</section>
+
+@code {
+    [Parameter] public EventCallback OnPlayAgain { get; set; }
+    [Parameter] public EventCallback OnQuit { get; set; }
+}

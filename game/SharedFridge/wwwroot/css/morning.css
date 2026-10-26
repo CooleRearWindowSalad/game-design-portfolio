@@ -1,0 +1,57 @@
+/* Morning: the notes the housemates left on the fridge door */
+.morning__title {
+  margin-bottom: 1rem;
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.morning__lede {
+  max-width: 40rem;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.morning__door {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 2.5rem 2rem;
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+  background: #eef3f1;
+  box-shadow: inset 0 0 0 0.5rem var(--paper);
+}
+
+/* Each note hangs at its own angle */
+.morning__note:nth-child(2) {
+  transform: rotate(-2deg);
+}
+
+.morning__note:nth-child(3) {
+  transform: rotate(1.5deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .morning__note {
+    animation: note-stick 350ms ease both;
+  }
+
+  .morning__note:nth-child(2) {
+    animation-delay: 150ms;
+  }
+
+  .morning__note:nth-child(3) {
+    animation-delay: 300ms;
+  }
+}
+
+@keyframes note-stick {
+  from {
+    opacity: 0;
+    translate: 0 -0.75rem;
+  }
+}

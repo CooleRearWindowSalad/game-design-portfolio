@@ -1,94 +1,195 @@
+@implements IDisposable
 @inject GameSession Session
 @inject GameDataLoader Data
 
 <section class="screen night">
-    <p class="eyebrow">Night @Session.Night of @GameSession.TotalNights</p>
-    <h2>The kitchen is quiet&hellip;</h2>
+    <div class="night__bar">
+        <p class="eyebrow">Night @Session.Night of @GameSession.TotalNights &middot; @Session.Score @(Session.Score == 1 ? "point" : "points")</p>
+        @if (spot != KitchenSpot.Room)
+        {
+            <button class="btn-secondary" type="button" @onclick="() => Go(KitchenSpot.Room)">&larr; Back to kitchen</button>
+        }
+    </div>
 
-    @if (housemates is null || items is null)
+    @if (housemates is null || items is null || tiers is null || recipes is null)
     {
         <p>Loading&hellip;</p>
     }
     else
     {
-        <div class="night__layout">
-            <div class="fridge" aria-label="The shared fridge">
-                @foreach (var shelf in Shelves())
-                {
-                    <div class="fridge__shelf">
-                        <p class="fridge__label">@shelf.Label</p>
-                        <ul class="fridge__items">
-                            @foreach (var item in shelf.Items)
-                            {
-                                var taken = Session.IsTaken(item);
-                                <li>
-                                    <button type="button"
-                                            class="fridge__item @(taken ? "fridge__item--taken" : "")"
-                                            aria-pressed="@taken"
-                                            title="@(taken ? $"Put back {item.Name}" : $"Take {item.Name}")"
-                                            @onclick="() => Session.ToggleTaken(item)">
-                                        <span class="fridge__icon" aria-hidden="true">@item.Icon</span>
-                                        <span class="fridge__name">@item.Name</span>
-                                    </button>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-            </div>
+        var menu = Session.MenuTonight(tiers, recipes);
 
-            <aside class="counter" aria-label="Taken tonight">
-                <h3 class="counter__title">On your counter</h3>
-                @{ var takenItems = items.Where(Session.IsTaken).ToList(); }
-                @if (takenItems.Count == 0)
+        switch (spot)
+        {
+            case KitchenSpot.Fridge:
+                <h2>The fridge</h2>
+                <p class="night__hint">Click an item to take it out and put it on your counter. Click it again to put it back.</p>
+                <FridgeView Items="items" Housemates="housemates" Menu="menu" />
+                break;
+
+            case KitchenSpot.Board:
+                <h2>Tonight's menu</h2>
+                <p class="night__hint">New dishes go up every night. A tick means that ingredient is already on your counter.</p>
+                <MenuGrid Tiers="tiers" Menu="menu" Items="items" />
+                break;
+
+            case KitchenSpot.Stove:
+                <h2>The stove</h2>
+                @if (Session.CookedTonight is { } meal)
                 {
-                    <p class="counter__empty">Nothing yet. Click something in the fridge to take it.</p>
+                    <p class="night__hint">
+                        The pan's still warm. You made <strong>@meal.Recipe.Name</strong> tonight (+@meal.Points).
+                        One meal a night: any more and someone will smell it.
+                    </p>
                 }
                 else
                 {
-                    <ul class="counter__items">
-                        @foreach (var item in takenItems)
-                        {
-                            <li class="counter__item">
-                                <span aria-hidden="true">@item.Icon</span>
-                                <span class="counter__name">@item.Name <span class="counter__owner">@OwnerLabel(item.OwnerId)</span></span>
-                                <button class="counter__return" type="button" @onclick="() => Session.ToggleTaken(item)">Put back</button>
-                            </li>
-                        }
-                    </ul>
+                    <div class="night__actions night__actions--hint">
+                        <p class="night__hint">You can cook one dish a night, once every ingredient for it is on your counter.</p>
+                        <button class="btn-secondary" type="button" @onclick="() => Go(KitchenSpot.Fridge)">Open the fridge</button>
+                    </div>
                 }
-            </aside>
-        </div>
-    }
+                <MenuGrid Tiers="tiers" Menu="menu" Items="items" OnCook="Cook" CanCook="Session.CookedTonight is null" />
+                break;
 
-    <button class="btn-secondary" type="button" @onclick="OnQuit">Back to start</button>
+            case KitchenSpot.Bed:
+                <h2>Your room</h2>
+                <div class="night__bed">
+                    @switch (bedWarning)
+                    {
+                        case BedWarning.Leftovers:
+                            <div class="night__warning" role="alert">
+                                <p>Wait. There's still food on your counter. If anyone finds it in the morning, they'll know. Put it back first.</p>
+                                <div class="night__actions">
+                                    <button class="btn-play btn-play--small" type="button" @onclick="PutAllBack">Put everything back</button>
+                                    <button class="btn-secondary" type="button" @onclick="() => Go(KitchenSpot.Fridge)">Go to the fridge</button>
+                                </div>
+                            </div>
+                            break;
+
+                        case BedWarning.TooHungry:
+                            <div class="night__warning" role="alert">
+                                <p>You skipped dinner last night too. Your stomach won't let you sleep. Cook something first.</p>
+                                <div class="night__actions">
+                                    <button class="btn-play btn-play--small" type="button" @onclick="() => Go(KitchenSpot.Stove)">Go to the stove</button>
+                                </div>
+                            </div>
+                            break;
+
+                        case BedWarning.Hungry:
+                            <div class="night__warning" role="alert">
+                                <p>Go to bed hungry? You won't score anything tonight, and you can't skip dinner two nights in a row.</p>
+                                <div class="night__actions">
+                                    <button class="btn-play btn-play--small" type="button" @onclick="Sleep">Sleep hungry</button>
+                                    <button class="btn-secondary" type="button" @onclick="() => Go(KitchenSpot.Stove)">Go to the stove</button>
+                                </div>
+                            </div>
+                            break;
+
+                        default:
+                            <p class="night__hint">
+                                @if (Session.CookedTonight is { } dinner)
+                                {
+                                    <text>Full of @dinner.Recipe.Name.ToLowerInvariant() and a little guilty, you look at your bed.</text>
+                                }
+                                else
+                                {
+                                    <text>Your bed. The house is silent.</text>
+                                }
+                            </p>
+                            <button class="btn-play" type="button" @onclick="TrySleep">
+                                @(Session.Night == GameSession.TotalNights ? "Sleep until payday" : "Sleep")
+                                <span class="btn-play__icon" aria-hidden="true">&#9654;</span>
+                            </button>
+                            break;
+                    }
+                </div>
+                break;
+
+            default:
+                <h2>The kitchen is quiet&hellip;</h2>
+                <p class="night__hint">
+                    @if (Session.CookedTonight is null)
+                    {
+                        <text>Check the menu board, take what you need from the fridge, cook it on the stove, then go to bed.</text>
+                    }
+                    else
+                    {
+                        <text>You've eaten. Time to go to bed before anyone wakes up.</text>
+                    }
+                </p>
+                <KitchenScene Items="items" Menu="menu" OnOpen="Go" />
+                <button class="btn-secondary night__quit" type="button" @onclick="OnQuit">Back to start</button>
+                break;
+        }
+    }
 </section>
 
 @code {
     [Parameter] public EventCallback OnQuit { get; set; }
 
+    // What stops the player from going to bed, shown only after they click Sleep
+    private enum BedWarning
+    {
+        None,
+        Leftovers,
+        Hungry,
+        TooHungry,
+    }
+
     private IReadOnlyList<Housemate>? housemates;
     private IReadOnlyList<FridgeItem>? items;
+    private IReadOnlyList<RecipeTier>? tiers;
+    private IReadOnlyList<Recipe>? recipes;
+    private KitchenSpot spot = KitchenSpot.Room;
+    private BedWarning bedWarning;
 
     protected override async Task OnInitializedAsync()
     {
+        Session.Changed += StateHasChanged;
+
         var housematesTask = Data.LoadHousematesAsync();
         var itemsTask = Data.LoadFridgeAsync();
+        var tiersTask = Data.LoadRecipeTiersAsync();
+        var recipesTask = Data.LoadRecipesAsync();
         housemates = await housematesTask;
         items = await itemsTask;
+        tiers = await tiersTask;
+        recipes = await recipesTask;
     }
 
-    // The player's own shelf on top, then one shelf per housemate
-    private IEnumerable<(string Label, IEnumerable<FridgeItem> Items)> Shelves()
+    private void Go(KitchenSpot to)
     {
-        yield return ("Your shelf", items!.Where(i => i.OwnerId == 0));
+        spot = to;
+        bedWarning = BedWarning.None;
+    }
 
-        foreach (var housemate in housemates!)
+    private void Cook(Recipe recipe) =>
+        Session.Cook(recipe, tiers!.FirstOrDefault(t => t.Name == recipe.Tier)?.Points ?? 0, items!);
+
+    private void TrySleep()
+    {
+        if (Session.HasCounterItems)
         {
-            yield return (housemate.Name, items!.Where(i => i.OwnerId == housemate.Id));
+            bedWarning = BedWarning.Leftovers;
+        }
+        else if (Session.CookedTonight is null)
+        {
+            bedWarning = Session.WentHungryLastNight ? BedWarning.TooHungry : BedWarning.Hungry;
+        }
+        else
+        {
+            Sleep();
         }
     }
 
-    private string OwnerLabel(int ownerId) =>
-        ownerId == 0 ? "Yours" : $"{housemates!.FirstOrDefault(h => h.Id == ownerId)?.Name ?? "Someone"}'s";
+    private void PutAllBack()
+    {
+        Session.PutAllBack();
+        bedWarning = BedWarning.None;
+    }
+
+    private void Sleep() => Session.Sleep(items!, housemates!);
+
+    public void Dispose() => Session.Changed -= StateHasChanged;
 }

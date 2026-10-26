@@ -10,6 +10,8 @@ public sealed class GameDataLoader(HttpClient http)
 
     public Task<IReadOnlyList<RecipeTier>> LoadRecipeTiersAsync() => LoadListAsync<RecipeTier>("data/recipe-tiers.json");
 
+    public Task<IReadOnlyList<Recipe>> LoadRecipesAsync() => LoadListAsync<Recipe>("data/recipes.json");
+
     public Task<IReadOnlyList<IntroPart>> LoadIntroAsync() => LoadListAsync<IntroPart>("data/intro.json");
 
     public Task<IReadOnlyList<FridgeItem>> LoadFridgeAsync() => LoadListAsync<FridgeItem>("data/fridge.json");

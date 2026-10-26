@@ -1,4 +1,5 @@
 ﻿@page "/"
+@implements IDisposable
 @inject GameSession Session
 
 <PageTitle>Shared Fridge</PageTitle>
@@ -11,7 +12,20 @@
     case GamePhase.Night:
         <NightScreen OnQuit="Session.Quit" />
         break;
+    case GamePhase.Morning:
+        <MorningScreen />
+        break;
+    case GamePhase.End:
+        <EndScreen OnPlayAgain="Session.Start" OnQuit="Session.Quit" />
+        break;
     default:
         <StartScreen OnPlay="Session.Start" />
         break;
+}
+
+@code {
+    // The phase can change from deep inside a screen (going to bed on the last night)
+    protected override void OnInitialized() => Session.Changed += StateHasChanged;
+
+    public void Dispose() => Session.Changed -= StateHasChanged;
 }

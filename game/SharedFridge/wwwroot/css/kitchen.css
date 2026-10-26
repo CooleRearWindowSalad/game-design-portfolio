@@ -1,0 +1,437 @@
+/* Night: the kitchen scene, the menu board and the stove */
+.night__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.night__bar .eyebrow {
+  margin-bottom: 0;
+}
+
+.night__hint {
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+}
+
+.night__quit {
+  margin-top: 2rem;
+}
+
+.night__bed {
+  max-width: 32rem;
+}
+
+.night__bed .btn-play {
+  margin-top: 0.5rem;
+}
+
+/* Shown after clicking Sleep when something stops you */
+.night__warning {
+  padding: 1.25rem;
+  border: 2px solid var(--ink);
+  border-left-width: 0.5rem;
+  background: var(--note);
+}
+
+.night__warning p {
+  margin-bottom: 1rem;
+}
+
+.night__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+.night__actions--hint {
+  margin-bottom: 1.5rem;
+}
+
+.night__actions--hint .night__hint {
+  margin-bottom: 0;
+}
+
+.night__bed .btn-play--small,
+.btn-play--small {
+  margin-top: 0;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border-width: 1px;
+  font-size: 0.9rem;
+}
+
+/* The kitchen: fridge and bedroom door stand full height, board on the wall, counter and stove in between */
+.kitchen {
+  --floor: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr 0.9fr;
+  grid-template-rows: 9rem 10.5rem;
+  grid-template-areas:
+    "fridge board   board door"
+    "fridge counter stove door";
+  gap: 1.5rem 1.25rem;
+  padding: 2rem 2rem var(--floor);
+  border: 2px solid var(--ink);
+  border-radius: 1.25rem;
+  background: linear-gradient(to bottom, var(--paper) calc(100% - var(--floor)), #d9d2c2 calc(100% - var(--floor)));
+  overflow: hidden;
+}
+
+.kitchen__spot {
+  position: relative;
+  padding: 0;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.kitchen__spot:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 0 rgba(32, 35, 33, 0.15);
+}
+
+.kitchen__spot:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+.kitchen__label {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--night);
+  color: var(--lime);
+  font: 500 0.75rem var(--mono);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* Fridge */
+.kitchen__fridge {
+  grid-area: fridge;
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
+  background: #eef3f1;
+}
+
+.kitchen__fridge-freezer {
+  position: absolute;
+  top: 34%;
+  right: 0;
+  left: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.kitchen__fridge-handle {
+  position: absolute;
+  top: 40%;
+  left: 0.6rem;
+  width: 0.4rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  background: var(--ink);
+}
+
+/* This morning's notes, still stuck to the door */
+.kitchen__fridge-notes {
+  position: absolute;
+  top: 44%;
+  right: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.kitchen__fridge-notes span {
+  width: 1.4rem;
+  height: 1.2rem;
+  background: var(--note);
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+  transform: rotate(-6deg);
+}
+
+.kitchen__fridge-notes span:nth-child(even) {
+  transform: rotate(5deg);
+}
+
+/* Menu board: a cork board with one note per dish */
+.kitchen__board {
+  grid-area: board;
+  border: 0.45rem solid #7a5b3c;
+  border-radius: 0.25rem;
+  background: #c9a57c;
+}
+
+.kitchen__notes {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 0.6rem 0.6rem 2.25rem;
+}
+
+.kitchen__note {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: var(--note);
+  box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.2);
+  font-size: 1.25rem;
+  transform: rotate(-4deg);
+}
+
+.kitchen__note:nth-child(even) {
+  transform: rotate(5deg);
+}
+
+/* Counter with whatever you've taken from the fridge */
+.kitchen__counter {
+  display: flex;
+  flex-direction: column;
+  grid-area: counter;
+  align-self: end;
+  height: 7rem;
+  border: 2px solid var(--ink);
+  border-top-width: 0.6rem;
+  background: #f7f5ef;
+}
+
+.kitchen__counter-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  padding: 0.4rem;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Stove with the oven underneath */
+.kitchen__stove {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: stove;
+  align-self: end;
+  height: 9rem;
+  padding-top: 0.6rem;
+  border-radius: 0.3rem;
+  background: var(--page);
+}
+
+.kitchen__burners {
+  display: grid;
+  grid-template-columns: repeat(2, 1.6rem);
+  place-items: center;
+  gap: 0.35rem 1rem;
+  min-height: 3.55rem;
+}
+
+.kitchen__burners > span:not(.kitchen__pan) {
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+}
+
+.kitchen__pan {
+  grid-column: 1 / -1;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.kitchen__oven {
+  width: 70%;
+  height: 1.6rem;
+  margin-top: 0.4rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.2rem;
+  background: var(--night-raised);
+}
+
+.kitchen__oven--warm {
+  background: #e98a2b;
+  box-shadow: 0 0 0.75rem rgba(233, 138, 43, 0.7);
+}
+
+/* Door to your room */
+.kitchen__door {
+  grid-area: door;
+  border-bottom: 0;
+  border-radius: 0.4rem 0.4rem 0 0;
+  background: #9c7650;
+}
+
+.kitchen__door-sign {
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  font-size: 2rem;
+  transform: translateX(-50%);
+}
+
+.kitchen__door-knob {
+  position: absolute;
+  top: 55%;
+  right: 0.7rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+/* Tonight's dishes, one column per tier */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+}
+
+.menu__tier {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+}
+
+.menu__tier-name {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--ink);
+  font-size: 1.2rem;
+}
+
+.menu__points {
+  color: var(--green);
+  font: 500 0.8rem var(--mono);
+}
+
+.recipe {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.recipe--ready {
+  border-color: var(--green);
+  box-shadow: inset 0.3rem 0 0 var(--lime);
+}
+
+.recipe__name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.recipe__icon {
+  font-size: 1.5rem;
+}
+
+.recipe__ingredients {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
+.recipe__ingredient {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+.recipe__ingredient--have {
+  color: var(--ink);
+}
+
+.recipe__check {
+  width: 1rem;
+  font-family: var(--mono);
+}
+
+.recipe__ingredient--have .recipe__check {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.recipe__count {
+  margin-left: auto;
+  font: 0.75rem var(--mono);
+}
+
+.recipe__cook {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.55rem;
+  border: 2px solid var(--ink);
+  background: var(--lime);
+  color: var(--night);
+  font: 700 0.85rem var(--sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.recipe__cook:hover {
+  background: var(--lime-light);
+}
+
+.recipe__cook:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.recipe__cook:disabled {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.recipe__missing {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 720px) {
+  .kitchen {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 7.5rem 13rem 9.5rem;
+    grid-template-areas:
+      "board   board"
+      "fridge  door"
+      "counter stove";
+    gap: 1rem;
+    padding: 1rem 1rem var(--floor);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kitchen__spot {
+    transition: none;
+  }
+
+  .kitchen__spot:hover {
+    transform: none;
+  }
+}

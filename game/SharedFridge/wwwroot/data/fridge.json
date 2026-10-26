@@ -5,6 +5,9 @@
   { "id": 10, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
   { "id": 11, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
   { "id": 12, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
+  { "id": 16, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
+  { "id": 17, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
+  { "id": 18, "ownerId": 1, "name": "Egg", "icon": "🥚", "price": 0.35 },
   { "id": 13, "ownerId": 1, "name": "Yoghurt", "icon": "🥛", "price": 0.90 },
   { "id": 14, "ownerId": 1, "name": "Yoghurt", "icon": "🥛", "price": 0.90 },
   { "id": 15, "ownerId": 1, "name": "Cheese", "icon": "🧀", "price": 3.50 },
@@ -14,10 +17,14 @@
   { "id": 22, "ownerId": 2, "name": "Vine tomatoes", "icon": "🍅", "price": 2.80 },
   { "id": 23, "ownerId": 2, "name": "Fresh pasta", "icon": "🍝", "price": 4.00 },
   { "id": 24, "ownerId": 2, "name": "Pesto", "icon": "🌿", "price": 4.50 },
+  { "id": 25, "ownerId": 2, "name": "Garlic", "icon": "🧄", "price": 0.50 },
+  { "id": 26, "ownerId": 2, "name": "Mushrooms", "icon": "🍄", "price": 2.20 },
 
   { "id": 30, "ownerId": 3, "name": "Crisps", "icon": "🥔", "price": 1.50 },
   { "id": 31, "ownerId": 3, "name": "Instant noodles", "icon": "🍜", "price": 0.80 },
   { "id": 32, "ownerId": 3, "name": "Chocolate pudding", "icon": "🍮", "price": 1.10, "isFavourite": true },
   { "id": 33, "ownerId": 3, "name": "Hummus", "icon": "🫘", "price": 1.80 },
-  { "id": 34, "ownerId": 3, "name": "Old yoghurt", "icon": "🥛", "price": 0.60 }
+  { "id": 34, "ownerId": 3, "name": "Old yoghurt", "icon": "🥛", "price": 0.60 },
+  { "id": 35, "ownerId": 3, "name": "Leftover rice", "icon": "🍚", "price": 0.80 },
+  { "id": 36, "ownerId": 3, "name": "Tortilla wraps", "icon": "🫓", "price": 1.60 }
 ]

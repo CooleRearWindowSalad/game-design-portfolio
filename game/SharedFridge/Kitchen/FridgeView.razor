@@ -1,0 +1,97 @@
+@inject GameSession Session
+
+@if (Session.Notes.Count > 0)
+{
+    <div class="fridge__notes" aria-label="This morning's notes on the fridge door">
+        @foreach (var note in Session.Notes)
+        {
+            <p class="note fridge__note">@note.Text</p>
+        }
+    </div>
+}
+
+<div class="night__layout">
+    <div class="fridge" aria-label="The shared fridge">
+        @foreach (var shelf in Shelves())
+        {
+            <div class="fridge__shelf">
+                <p class="fridge__label">@shelf.Label</p>
+                <ul class="fridge__items">
+                    @foreach (var item in shelf.Items)
+                    {
+                        var taken = Session.IsTaken(item);
+                        var eaten = Session.IsEaten(item);
+                        <li>
+                            <button type="button"
+                                    class="fridge__item @(taken ? "fridge__item--taken" : "") @(eaten ? "fridge__item--eaten" : "")"
+                                    aria-pressed="@taken"
+                                    disabled="@eaten"
+                                    title="@(eaten ? $"{item.Name} (eaten)" : taken ? $"Put back {item.Name}" : $"Take {item.Name}")"
+                                    @onclick="() => Session.ToggleTaken(item)">
+                                <span class="fridge__icon" aria-hidden="true">@item.Icon</span>
+                                <span class="fridge__name">@item.Name</span>
+                            </button>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+
+    <aside class="counter" aria-label="Taken tonight">
+        <h3 class="counter__title">On your counter</h3>
+        @{ var takenItems = Items.Where(Session.IsTaken).ToList(); }
+        @if (takenItems.Count == 0)
+        {
+            <p class="counter__empty">Nothing yet. Click something in the fridge to take it.</p>
+        }
+        else
+        {
+            <ul class="counter__items">
+                @foreach (var item in takenItems)
+                {
+                    <li class="counter__item">
+                        <span aria-hidden="true">@item.Icon</span>
+                        <span class="counter__name">@item.Name <span class="counter__owner">@OwnerLabel(item.OwnerId)</span></span>
+                        <button class="counter__return" type="button" @onclick="() => Session.ToggleTaken(item)">Put back</button>
+                    </li>
+                }
+            </ul>
+        }
+
+        <h3 class="counter__title counter__title--menu">Tonight's menu</h3>
+        <ul class="counter__menu">
+            @foreach (var recipe in Menu)
+            {
+                var missing = Session.CheckCounter(recipe, Items).Missing;
+                <li class="counter__dish @(missing.Count == 0 ? "counter__dish--ready" : "")">
+                    <span aria-hidden="true">@recipe.Icon</span>
+                    <span class="counter__name">
+                        @recipe.Name
+                        <span class="counter__owner">@(missing.Count == 0 ? "Ready to cook" : $"Needs {IngredientText.Describe(missing)}")</span>
+                    </span>
+                </li>
+            }
+        </ul>
+    </aside>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<FridgeItem> Items { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<Housemate> Housemates { get; set; } = [];
+    [Parameter, EditorRequired] public IReadOnlyList<Recipe> Menu { get; set; } = [];
+
+    // The player's own shelf on top, then one shelf per housemate
+    private IEnumerable<(string Label, IEnumerable<FridgeItem> Items)> Shelves()
+    {
+        yield return ("Your shelf", Items.Where(i => i.OwnerId == 0));
+
+        foreach (var housemate in Housemates)
+        {
+            yield return (housemate.Name, Items.Where(i => i.OwnerId == housemate.Id));
+        }
+    }
+
+    private string OwnerLabel(int ownerId) =>
+        ownerId == 0 ? "Yours" : $"{Housemates.FirstOrDefault(h => h.Id == ownerId)?.Name ?? "Someone"}'s";
+}
